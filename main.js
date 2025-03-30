@@ -1,4 +1,5 @@
 window.addEventListener('DOMContentLoaded', function() {
+    // initial fade-in animation
     setTimeout(function() {
         document.body.style.opacity = '1';
         
@@ -13,6 +14,7 @@ window.addEventListener('DOMContentLoaded', function() {
         }, 600);
     }, 300);
 
+    // section visibility animation
     const sections = document.querySelectorAll('section');
     
     const observerOptions = {
@@ -35,6 +37,7 @@ window.addEventListener('DOMContentLoaded', function() {
         sectionObserver.observe(section);
     });
 
+    // direct links to sections
     if (window.location.hash) {
         const targetId = window.location.hash;
         const targetElement = document.querySelector(targetId);
@@ -46,6 +49,7 @@ window.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // scroll arrow functionality (down arrow & back to top button)
     const scrollArrow = document.querySelector('.scroll-arrow');
     const heroContainer = document.querySelector('.hero-container');
     
@@ -65,6 +69,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
     window.addEventListener('scroll', handleScroll);
     
+    // handle scroll arrow clicks
     scrollArrow.addEventListener('click', function(e) {
         e.preventDefault();
         
@@ -84,9 +89,30 @@ window.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // handle clicks on the arrow's a tag
+    scrollArrow.querySelector('a').addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        if (scrollArrow.classList.contains('show-top')) {
+            heroContainer.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        } else {
+            const firstSection = document.querySelector('section');
+            if (firstSection) {
+                firstSection.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+    });
+
     handleScroll();
 });
 
+// smooth scroll for all anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
@@ -102,6 +128,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+// contact form validation
 const contactForm = document.getElementById('contactForm');
 const nameInput = document.getElementById('name');
 const emailInput = document.getElementById('email');
@@ -139,6 +166,7 @@ contactForm.addEventListener('submit', (event) => {
     }
 });
 
+// email validation helper function
 function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
