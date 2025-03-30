@@ -75,8 +75,8 @@ body {
     bottom: 2rem;
     right: 2rem;
     color: var(--pine-text);
-    transition: transform 0.5s ease, 
-                opacity 0.3s ease, 
+    transition: transform 0.9s ease, 
+                opacity 0.5s ease, 
                 background-color 0.5s ease,
                 box-shadow 0.5s ease;
     animation: gentleFade 4s infinite ease-in-out;
@@ -121,7 +121,7 @@ body {
     }
     50% {
         opacity: 1;
-        transform: translateY(-8px);
+        transform: translateY(-5px);
     }
 }
 
