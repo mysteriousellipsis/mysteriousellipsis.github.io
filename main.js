@@ -69,45 +69,31 @@ window.addEventListener('DOMContentLoaded', function() {
 
     window.addEventListener('scroll', handleScroll);
     
-    // handle scroll arrow clicks
-    scrollArrow.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        if (this.classList.contains('show-top')) {
-            heroContainer.scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
-            });
-        } else {
-            const firstSection = document.querySelector('section');
-            if (firstSection) {
-                firstSection.scrollIntoView({ 
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        }
-    });
+    // handle scroll arrow clicks (now with firefox support! wow!)
+    function smoothScroll(target) {
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+        });
+    }
 
-    // handle clicks on the arrow's a tag
-    scrollArrow.querySelector('a').addEventListener('click', function(e) {
+    function handleArrowClick(e) {
         e.preventDefault();
         
         if (scrollArrow.classList.contains('show-top')) {
-            heroContainer.scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
-            });
+            smoothScroll(heroContainer);
         } else {
             const firstSection = document.querySelector('section');
             if (firstSection) {
-                firstSection.scrollIntoView({ 
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                smoothScroll(firstSection);
             }
         }
-    });
+    }
+
+    // apply click handler 
+    scrollArrow.addEventListener('click', handleArrowClick);
+    scrollArrow.querySelector('a').addEventListener('click', handleArrowClick);
 
     handleScroll();
 });
