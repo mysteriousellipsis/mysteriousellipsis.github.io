@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luna's Portfolio</title>
+    
+    <title>Charles' Portfolio</title>
+
+    <meta name="theme-color" content="#d7827e">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -21,27 +25,54 @@
         </div>
         
         <div class="intro-container">
-            <p class="text-lg md:text-xl pine-text">Hey there! I'm <span class="rose-text font-semibold">Charles</span></p>
-            <p class="text-lg md:text-xl pine-text">I create awesome tools.</p>
+            <p class="pine-text">Hey there! I'm <span class="rose-text font-semibold">Charles</span></p>
+            <p class="pine-text">I create awesome tools.</p>
         </div>
         
         <div class="scroll-arrow">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 5v14"></path>
-                <path d="M19 12l-7 7-7-7"></path>
-            </svg>
+            <a href="#projects">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 5v14"></path>
+                    <path d="M19 12l-7 7-7-7"></path>
+                </svg>
+            </a>
         </div>
     </div>
 
     <main class="container mx-auto">
         <section id="projects">
             <h2 class="section-heading">Projects</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="project-card">
-                    <h3>Project 1</h3>
-                    <p>Description of project 1.</p>
-                    <a href="https://" class="project-link">Learn More</a>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="achievement-item">
+                    <span class="achievement-icon">🤖</span>
+                    <div class="achievement-content">
+                        <h3>Project Name 1</h3>
+                        <p>Description of project 1</p>
+                        <div class="project-links mt-2">
+                            <a href="https://github.com/yourusername/project1" target="_blank" class="project-link">View Project</a>
+                            <a href="#" class="project-link">Learn More</a>
+                        </div>
+                    </div>
                 </div>
+                <div class="achievement-item">
+                    <span class="achievement-icon">🌐</span>
+                    <div class="achievement-content">
+                        <h3>Project Name 2</h3>
+                        <p>Description of project 2</p>
+                        <div class="project-links mt-2">
+                            <a href="https://github.com/yourusername/project2" target="_blank" class="project-link">View Project</a>
+                            <a href="#" class="project-link">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-arrow">
+                <a href="projects.html" class="nav-link-secondary">
+                    <span>See More</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
             </div>
         </section>
 
@@ -49,11 +80,26 @@
             <h2 class="section-heading">Achievements</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="achievement-item">
+                    <span class="achievement-icon">💻</span>
+                    <div class="achievement-content">
+                        <h3>Perse Coding Team Challenge</h3>
+                        <p>4x Round 1, 3x Round 2</p>
+                    </div>
+                </div>
+                <div class="achievement-item">
+                    <span class="achievement-icon">🗣️</span>
+                    <div class="achievement-content">
+                        <h3>SST iNC ACTO of Android app development</h3>
+                        <p>Taught app development in Kotlin to trainees</p>
+                    </div>
+                </div>
+                <div class="achievement-item">
                     <span class="achievement-icon">🏆</span>
                     <div class="achievement-content">
-                        <h3>Achievement 1</h3>
-                        <p>Achievement description</p>
+                        <h3>Central CTF</h3>
+                        <p>Top 7th individual, top 4th team.</p>
                     </div>
+                </div>
             </div>
             <div class="section-arrow">
                 <a href="achievements.html" class="nav-link-secondary">
@@ -68,7 +114,20 @@
         <section id="about">
             <h2 class="section-heading">About Me</h2>
             <p class="about-text">
-                about me
+                <ul class="about-list mt-4 space-y-2">
+                    <li class="flex items-center">
+                        <p>I am <span class="rose-text font-semibold">Charles Ng</span>, a 16-year-old student studying at the 
+                        <span class="rose-text font-semibold">School of Science and Technology, Singapore</span>. </p>
+                    </li>
+                    <li class="flex items-center">
+                        <p><span>I am the ex-ACTO of <span class="rose-text font-semibold">Android app development</span> in SST iNC, where I taught 
+                        <span class="rose-text font-semibold">Kotlin</span> to trainees</span>.</p>
+                    </li>
+                    <li class="flex items-center">
+                        I am a <span class="rose-text font-semibold">self-taught programmer</span>, with a focus on <span>creating <span class="rose-text font-semibold">CLI tools</span></span> and 
+                        <span>exploring <span class="rose-text font-semibold">cybersecurity</span></span>
+                    </li>
+                </ul>
             </p>
         </section>
 
@@ -128,7 +187,7 @@
 
     <footer>
         <div class="container mx-auto">
-            © 2024 ellipticobj. All rights reserved.
+            © 2024 <a href="https://github.com/ellipticobj" class="rose-text">ellipticobj</a>. Created by ellipticobj. All rights reserved.
         </div>
     </footer>
 </body>
