@@ -178,7 +178,7 @@ section:last-child {
 
 .project-card h3 {
     color: var(--pine-text);
-    font-size: 1.5rem;
+    font-size: 2rem;
     margin-bottom: 1rem;
 }
 
@@ -201,7 +201,7 @@ section:last-child {
     border-radius: 1rem;
     text-decoration: none;
     transition: background-color 0.3s ease, transform 0.3s ease;
-    font-size: 0.875rem;
+    font-size: 1rem;
 }
 
 .project-link:hover {
@@ -233,11 +233,12 @@ section:last-child {
 
 .achievement-content h3 {
     color: var(--pine-text);
-    font-size: 1.5rem;
+    font-size: 2rem;
     margin-bottom: 0.5rem;
 }
 
 .achievement-content p {
+    font-size: 1.1rem;
     color: var(--gray-text);
 }
 
@@ -245,7 +246,7 @@ section:last-child {
     display: block;
     margin-top: 0.5rem;
     color: var(--gray-text);
-    font-size: 0.875rem;
+    font-size: 1rem;
 }
 
 .about-text {
@@ -376,6 +377,7 @@ textarea.form-input {
     transition: transform 0.5s ease, box-shadow 0.5s ease;
     box-shadow: 0 1px 2px var(--shadow-light);
     width: 100%;
+    font-size: 1.1rem;
 }
 
 .social-link:hover {
