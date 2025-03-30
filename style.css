@@ -289,11 +289,20 @@ section:last-child {
 }
 
 .contact-form {
-    background-color: var(--rose-bg);
+    background-color: var(--light-bg); /* Match other card backgrounds */
     border-radius: 0.5rem;
     padding: 2rem;
     margin-bottom: 2rem;
-    transition: background-color 0.5s ease, box-shadow 0.5s ease;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 1px 2px var(--shadow-light);
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.contact-form:hover {
+    transform: scale(1.01);
+    box-shadow: 0 2px 4px var(--shadow-medium);
 }
 
 .contact-form h2 {
@@ -318,47 +327,71 @@ section:last-child {
 .form-input {
     width: 100%;
     padding: 0.75rem;
-    border-radius: 0.5rem;
-    border: 2px solid var(--rose-text);
-    background-color: var(--form-bg);
+    border: 1px solid var(--pine-text);
+    border-radius: 0.25rem;
+    background-color: var(--light-bg);
     color: var(--pine-text);
-    font-size: 1rem;
-    transition: border-color 0.5s ease, background-color 0.5s ease, color 0.5s ease;
-    outline: none;
+    transition: border-color 0.3s ease;
 }
 
 .form-input:focus {
-    border-color: var(--pine-bg);
-    box-shadow: 0 0 0 3px rgba(156, 207, 216, 0.2);
+    outline: none;
+    border-color: var(--rose-text);
+}
+
+.form-input.touched:invalid {
+    border-color: var(--rose-text);
 }
 
 textarea.form-input {
-    height: 120px;
+    min-height: 150px;
     resize: vertical;
 }
 
 .form-button {
-    display: block;
-    width: 100%;
-    padding: 0.75rem;
-    border-radius: 2rem;
     background-color: var(--rose-text);
-    color: #fff;
-    font-size: 1.2rem;
-    font-weight: 600;
+    color: var(--light-bg);
+    padding: 0.75rem 1.5rem;
     border: none;
+    border-radius: 0.25rem;
     cursor: pointer;
-    transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
-    outline: none;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .form-button:hover {
-    background-color: #c07370;
-    box-shadow: 0 1px 2px var(--shadow-light);
+    background-color: var(--pine-text);
 }
 
 .form-button:focus {
     box-shadow: 0 0 0 3px rgba(215, 130, 126, 0.5);
+}
+
+.error-message {
+    color: var(--rose-text); /* Using your rose color instead of red */
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: none;
+    transition: color 0.3s ease;
+}
+
+.button-loader {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--light-bg);
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .social-links {

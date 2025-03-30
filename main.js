@@ -114,46 +114,104 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// contact form validation
-const contactForm = document.getElementById('contactForm');
-const nameInput = document.getElementById('name');
-const emailInput = document.getElementById('email');
-const messageInput = document.getElementById('message');
-const nameError = document.getElementById('name-error');
-const emailError = document.getElementById('email-error');
-const messageError = document.getElementById('message-error');
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('contactForm');
+    const inputs = form.querySelectorAll('.form-input');
 
-contactForm.addEventListener('submit', (event) => {
-    let hasErrors = false;
+    // Add 'touched' class only after user interacts with an input
+    inputs.forEach(input => {
+        input.addEventListener('blur', function() {
+            this.classList.add('touched');
+            validateInput(this);
+        });
 
-    if (!nameInput.value.trim()) {
-        nameError.style.display = 'block';
-        hasErrors = true;
-    } else {
-        nameError.style.display = 'none';
+        input.addEventListener('input', function() {
+            if (this.classList.contains('touched')) {
+                validateInput(this);
+            }
+        });
+    });
+
+    function validateInput(input) {
+        const errorElement = document.getElementById(`${input.id}-error`);
+        
+        if (input.id === 'email' && input.value.trim()) {
+            const isValid = isValidEmail(input.value.trim());
+            errorElement.style.display = isValid ? 'none' : 'block';
+        } else {
+            errorElement.style.display = input.value.trim() ? 'none' : 'block';
+        }
     }
 
-    if (!emailInput.value.trim() || !isValidEmail(emailInput.value.trim())) {
-        emailError.style.display = 'block';
-        hasErrors = true;
-    } else {
-        emailError.style.display = 'none';
-    }
-
-    if (!messageInput.value.trim()) {
-        messageError.style.display = 'block';
-        hasErrors = true;
-    } else {
-        messageError.style.display = 'none';
-    }
-
-    if (hasErrors) {
+    form.addEventListener('submit', function(event) {
         event.preventDefault();
+        
+        const buttonText = form.querySelector('.button-text');
+        const buttonLoader = form.querySelector('.button-loader');
+        const nameInput = form.querySelector('#name');
+        const emailInput = form.querySelector('#email');
+        const messageInput = form.querySelector('#message');
+        
+        // Mark all inputs as touched on submit
+        inputs.forEach(input => input.classList.add('touched'));
+        
+        // Validate form
+        let hasErrors = false;
+        
+        if (!nameInput.value.trim()) {
+            document.getElementById('name-error').style.display = 'block';
+            hasErrors = true;
+        } else {
+            document.getElementById('name-error').style.display = 'none';
+        }
+        
+        if (!emailInput.value.trim() || !isValidEmail(emailInput.value.trim())) {
+            document.getElementById('email-error').style.display = 'block';
+            hasErrors = true;
+        } else {
+            document.getElementById('email-error').style.display = 'none';
+        }
+        
+        if (!messageInput.value.trim()) {
+            document.getElementById('message-error').style.display = 'block';
+            hasErrors = true;
+        } else {
+            document.getElementById('message-error').style.display = 'none';
+        }
+        
+        if (hasErrors) return;
+        
+        // Show loading state
+        buttonText.style.display = 'none';
+        buttonLoader.style.display = 'block';
+        
+        // Prepare email parameters
+        const templateParams = {
+            from_name: nameInput.value,
+            from_email: emailInput.value,
+            message: messageInput.value,
+            to_name: 'Charles Ng',
+            to_email: 'ellipticobj@gmail.com'
+        };
+        
+        // Send email using EmailJS
+        emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+            .then(function() {
+                alert('Message sent successfully!');
+                form.reset();
+                inputs.forEach(input => input.classList.remove('touched'));
+            }, function(error) {
+                alert('Failed to send message. Please try again.');
+                console.error('EmailJS error:', error);
+            })
+            .finally(function() {
+                buttonText.style.display = 'block';
+                buttonLoader.style.display = 'none';
+            });
+    });
+
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
     }
 });
-
-// email validation helper function
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
