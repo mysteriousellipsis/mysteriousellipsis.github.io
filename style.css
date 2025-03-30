@@ -121,17 +121,17 @@ section:last-child {
 }
 
 .project-card {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.5);
     border-radius: 0.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     padding: 2rem;
     margin-bottom: 0.25rem;
     transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
 
 .project-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transform: scale(1.01);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .project-card h3 {
@@ -172,9 +172,9 @@ section:last-child {
 }
 
 .achievement-item {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.5);
     border-radius: 0.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     padding: 2rem;
     display: flex;
     align-items: center;
@@ -183,8 +183,8 @@ section:last-child {
 }
 
 .achievement-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transform: scale(1.01);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .achievement-icon {
@@ -211,18 +211,31 @@ section:last-child {
 
 .about-list {
     list-style: none;
-    padding-left: 0.5rem;
+    padding-left: 0;
 }
 
 .about-list li {
     background-color: rgba(255, 255, 255, 0.5);
-    padding: 0.75rem;
+    padding: 1rem;
     border-radius: 0.5rem;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    align-items: flex-start;
 }
 
 .about-list li:hover {
-    transform: translateX(10px);
+    transform: scale(1.01);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.about-list li p {
+    margin: 0;
+    flex: 1;
+}
+
+.about-list li span.text-xl {
+    flex-shrink: 0;
+    margin-top: 0.25rem;
 }
 
 .contact-form {
@@ -291,7 +304,7 @@ textarea.form-input {
 
 .form-button:hover {
     background-color: #c07370; /* Darker rose */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .form-button:focus {
@@ -303,28 +316,32 @@ textarea.form-input {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 1.5rem;
+    gap: 0.25rem;
     margin-top: 2rem;
 }
 
 .social-link {
     display: flex;
     align-items: center;
-    padding: 0.75rem 1.5rem;
-    background-color: white;
-    border-radius: 2rem;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 0.5rem;
     color: #286983;
     text-decoration: none;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    width: 100%;
 }
 
 .social-link:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: scale(1.01);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .social-link svg {
-    margin-right: 0.5rem;
+    margin-right: 1rem;
+    width: 24px;
+    height: 24px;
 }
 
 footer {
