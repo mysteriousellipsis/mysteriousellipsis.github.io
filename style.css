@@ -71,22 +71,47 @@ body {
 }
 
 .scroll-arrow {
-    position: absolute;
+    position: fixed;
     bottom: 2rem;
     right: 2rem;
     color: var(--pine-text);
-    transition: transform 0.5s ease;
+    transition: transform 0.5s ease, 
+                opacity 0.3s ease, 
+                background-color 0.5s ease,
+                box-shadow 0.5s ease;
     animation: gentleFade 4s infinite ease-in-out;
+    z-index: 1000;
+    cursor: pointer;
+    background-color: transparent;
+    border-radius: 50%;
+    padding: 0.75rem;
+    opacity: 0.6;
+    pointer-events: auto;
 }
 
-.scroll-arrow a {
-    color: inherit;
-    text-decoration: none;
+.scroll-arrow.show-top {
+    animation: none;
+    opacity: 1;
+    pointer-events: auto;
+    background-color: var(--light-bg);
+    box-shadow: 0 4px 6px var(--shadow-medium);
+}
+
+.scroll-arrow.show-top svg {
+    transform: rotate(180deg);
+}
+
+.scroll-arrow:hover {
+    transform: translateY(-5px);
+    background-color: var(--rose-text);
+    color: white;
+    box-shadow: 0 6px 12px var(--shadow-medium);
 }
 
 .scroll-arrow svg {
     width: 40px;
     height: 40px;
+    transition: transform 0.5s ease;
 }
 
 @keyframes gentleFade {

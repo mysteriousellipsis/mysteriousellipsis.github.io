@@ -45,6 +45,46 @@ window.addEventListener('DOMContentLoaded', function() {
             }, 1000);
         }
     }
+
+    const scrollArrow = document.querySelector('.scroll-arrow');
+    const heroContainer = document.querySelector('.hero-container');
+    
+    function handleScroll() {
+        if (!heroContainer) return;
+        
+        const heroBottom = heroContainer.offsetTop + heroContainer.offsetHeight;
+        
+        if (window.scrollY > heroBottom) {
+            scrollArrow.classList.add('show-top');
+            scrollArrow.querySelector('a').setAttribute('href', '#');
+        } else {
+            scrollArrow.classList.remove('show-top');
+            scrollArrow.querySelector('a').setAttribute('href', '#projects');
+        }
+    }
+
+    window.addEventListener('scroll', handleScroll);
+    
+    scrollArrow.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        if (this.classList.contains('show-top')) {
+            heroContainer.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        } else {
+            const firstSection = document.querySelector('section');
+            if (firstSection) {
+                firstSection.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+    });
+
+    handleScroll();
 });
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
