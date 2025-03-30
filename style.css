@@ -463,26 +463,43 @@ footer {
 }
 
 @media (min-width: 1200px) {
-    .intro-container { font-size: 3.5rem; }
-    .nav-link { font-size: 6rem; }
+    .intro-container { font-size: 4rem; }
+    .nav-link { font-size: 7rem; }
+    .section-heading { font-size: 4rem; }
+    .project-card h3, .achievement-content h3 { font-size: 2.5rem; }
+    .project-card p, .achievement-content p { font-size: 1.25rem; }
+    .about-text { font-size: 1.3rem; }
+    .nav-link-secondary { font-size: 1.5rem; }
 }
 
 @media (min-width: 992px) and (max-width: 1200px) {
-    .intro-container { font-size: 3rem; }
-    .nav-link { font-size: 5rem; }
+    .intro-container { font-size: 3.5rem; }
+    .nav-link { font-size: 6rem; }
+    .section-heading { font-size: 3.5rem; }
+    .project-card h3, .achievement-content h3 { font-size: 2.25rem; }
+    .project-card p, .achievement-content p { font-size: 1.2rem; }
+    .about-text { font-size: 1.2rem; }
+    .nav-link-secondary { font-size: 1.4rem; }
 }
 
 @media (min-width: 768px) and (max-width: 992px) {
-    .intro-container { font-size: 2.5rem; }
-    .nav-link { font-size: 4rem; }
+    .intro-container { font-size: 3rem; }
+    .nav-link { font-size: 5rem; }
+    .section-heading { font-size: 3rem; }
+    .project-card h3, .achievement-content h3 { font-size: 2rem; }
+    .project-card p, .achievement-content p { font-size: 1.15rem; }
+    .about-text { font-size: 1.15rem; }
+    .nav-link-secondary { font-size: 1.3rem; }
 }
 
 @media (max-width: 767px) {
     .intro-container { right: 2rem; font-size: 2rem; }
     .nav-link { font-size: 3.5rem; }
+    .section-heading { font-size: 2.5rem; }
 }
 
 @media (max-width: 576px) {
     .intro-container { right: 1rem; font-size: 1.5rem; }
     .nav-link { font-size: 3rem; }
+    .section-heading { font-size: 2rem; }
 }
