@@ -13,6 +13,28 @@ window.addEventListener('DOMContentLoaded', function() {
         }, 600);
     }, 300);
 
+    const sections = document.querySelectorAll('section');
+    
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.15 // triggers when 15% of the section is visible
+    };
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) {
+                entry.target.classList.remove('visible');
+            } else {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    sections.forEach(section => {
+        sectionObserver.observe(section);
+    });
+
     if (window.location.hash) {
         const targetId = window.location.hash;
         const targetElement = document.querySelector(targetId);
