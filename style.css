@@ -258,16 +258,19 @@ section:last-child {
 .about-list {
     list-style: none;
     padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
 }
 
 .about-list li {
     background-color: var(--light-bg);
-    padding: 1rem;
+    padding: 1.5rem;
     border-radius: 0.5rem;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     align-items: flex-start;
-    margin-bottom: 1rem;
+    margin-bottom: 0;
 }
 
 .about-list li:hover {
@@ -467,9 +470,14 @@ footer {
     .nav-link { font-size: 7rem; }
     .section-heading { font-size: 4rem; }
     .project-card h3, .achievement-content h3 { font-size: 2.5rem; }
-    .project-card p, .achievement-content p { font-size: 1.25rem; }
-    .about-text { font-size: 1.3rem; }
-    .nav-link-secondary { font-size: 1.5rem; }
+    .project-card p, .achievement-content p { font-size: 1.5rem; }
+    .about-text { font-size: 1.6rem; }
+    .nav-link-secondary { font-size: 1.8rem; }
+    .social-link { font-size: 1.5rem; padding: 2.5rem; }
+    .social-link svg { width: 32px; height: 32px; }
+    .project-link { font-size: 1.4rem; padding: 0.75rem 1.5rem; }
+    .achievement-date { font-size: 1.3rem; }
+    .about-list li p { font-size: 1.5rem; }
 }
 
 @media (min-width: 992px) and (max-width: 1200px) {
@@ -477,9 +485,14 @@ footer {
     .nav-link { font-size: 6rem; }
     .section-heading { font-size: 3.5rem; }
     .project-card h3, .achievement-content h3 { font-size: 2.25rem; }
-    .project-card p, .achievement-content p { font-size: 1.2rem; }
-    .about-text { font-size: 1.2rem; }
-    .nav-link-secondary { font-size: 1.4rem; }
+    .project-card p, .achievement-content p { font-size: 1.4rem; }
+    .about-text { font-size: 1.4rem; }
+    .nav-link-secondary { font-size: 1.6rem; }
+    .social-link { font-size: 1.3rem; padding: 2.25rem; }
+    .social-link svg { width: 28px; height: 28px; }
+    .project-link { font-size: 1.3rem; padding: 0.6rem 1.25rem; }
+    .achievement-date { font-size: 1.2rem; }
+    .about-list li p { font-size: 1.4rem; }
 }
 
 @media (min-width: 768px) and (max-width: 992px) {
@@ -487,19 +500,34 @@ footer {
     .nav-link { font-size: 5rem; }
     .section-heading { font-size: 3rem; }
     .project-card h3, .achievement-content h3 { font-size: 2rem; }
-    .project-card p, .achievement-content p { font-size: 1.15rem; }
-    .about-text { font-size: 1.15rem; }
-    .nav-link-secondary { font-size: 1.3rem; }
+    .project-card p, .achievement-content p { font-size: 1.3rem; }
+    .about-text { font-size: 1.3rem; }
+    .nav-link-secondary { font-size: 1.4rem; }
+    .social-link { font-size: 1.2rem; padding: 2rem; }
+    .social-link svg { width: 24px; height: 24px; }
+    .project-link { font-size: 1.2rem; padding: 0.5rem 1rem; }
+    .achievement-date { font-size: 1.1rem; }
+    .about-list li p { font-size: 1.3rem; }
 }
 
 @media (max-width: 767px) {
     .intro-container { right: 2rem; font-size: 2rem; }
     .nav-link { font-size: 3.5rem; }
     .section-heading { font-size: 2.5rem; }
+    .social-link { font-size: 1.1rem; padding: 1.75rem; }
+    .social-link svg { width: 20px; height: 20px; }
+    .project-link { font-size: 1rem; padding: 0.5rem 1rem; }
+    .about-text, .project-card p, .achievement-content p { font-size: 1.1rem; }
+    .about-list li p { font-size: 1.1rem; }
 }
 
 @media (max-width: 576px) {
     .intro-container { right: 1rem; font-size: 1.5rem; }
     .nav-link { font-size: 3rem; }
     .section-heading { font-size: 2rem; }
+    .social-link { font-size: 1rem; padding: 1.5rem; }
+    .social-link svg { width: 18px; height: 18px; }
+    .project-link { font-size: 0.9rem; padding: 0.4rem 0.9rem; }
+    .about-text, .project-card p, .achievement-content p { font-size: 1rem; }
+    .about-list li p { font-size: 1rem; }
 }
