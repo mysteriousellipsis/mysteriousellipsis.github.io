@@ -489,20 +489,6 @@ textarea.form-input {
     }
 }
 
-@media (max-width: 480px) {
-    .contact-form,
-    .social-links {
-        margin-left: 1rem;
-        margin-right: 1rem;
-    }
-    
-    .social-link {
-        width: 45px;
-        height: 45px;
-        padding: 0.5rem;
-    }
-}
-
 footer {
     background-color: var(--rose-bg);
     padding: 2rem;
@@ -582,8 +568,8 @@ footer {
     .project-card p, .achievement-content p { font-size: 1.5rem; }
     .about-text { font-size: 1.6rem; }
     .nav-link-secondary { font-size: 1.8rem; }
-    .social-link { font-size: 1.5rem; padding: 2.5rem; }
-    .social-link svg { width: 32px; height: 32px; }
+    /* .social-link { font-size: 1.5rem; padding: 2.5rem; } */
+    /* .social-link svg { width: 32px; height: 32px; } */
     .project-link { font-size: 1.4rem; padding: 0.75rem 1.5rem; }
     .achievement-date { font-size: 1.3rem; }
     .about-list li p { font-size: 1.5rem; }
@@ -597,8 +583,8 @@ footer {
     .project-card p, .achievement-content p { font-size: 1.4rem; }
     .about-text { font-size: 1.4rem; }
     .nav-link-secondary { font-size: 1.6rem; }
-    .social-link { font-size: 1.3rem; padding: 2.25rem; }
-    .social-link svg { width: 28px; height: 28px; }
+    /* .social-link { font-size: 1.3rem; padding: 2.25rem; } */
+    /* .social-link svg { width: 28px; height: 28px; } */
     .project-link { font-size: 1.3rem; padding: 0.6rem 1.25rem; }
     .achievement-date { font-size: 1.2rem; }
     .about-list li p { font-size: 1.4rem; }
@@ -612,8 +598,8 @@ footer {
     .project-card p, .achievement-content p { font-size: 1.3rem; }
     .about-text { font-size: 1.3rem; }
     .nav-link-secondary { font-size: 1.4rem; }
-    .social-link { font-size: 1.2rem; padding: 2rem; }
-    .social-link svg { width: 24px; height: 24px; }
+    /* .social-link { font-size: 1.2rem; padding: 2rem; } */
+    /* .social-link svg { width: 24px; height: 24px; } */
     .project-link { font-size: 1.2rem; padding: 0.5rem 1rem; }
     .achievement-date { font-size: 1.1rem; }
     .about-list li p { font-size: 1.3rem; }
