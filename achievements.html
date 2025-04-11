@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Achievements | Charles</title>
-
     <meta name="theme-color" content="#d7827e">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css"/>
-    <script src="main.js"></script>
+    <script defer src="script.js"></script> 
 </head>
 <body class="theme-light">
     <div class="theme-toggle">
@@ -33,11 +32,8 @@
     </div>
 
     <nav class="page-nav">
-        <a href="index.html" class="nav-back">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-            <span>Back to Home</span>
+        <a href="index.html" class="nav-back" data-page-nav> 
+            <span>← Back to Home</span>
         </a>
     </nav>
 
@@ -47,50 +43,40 @@
             <div class="page-subtitle">Milestones and recognitions</div>
         </div>
         
-        <div class="achievements-timeline">
-            <div class="timeline-year">2024</div>
-            
-            <div class="achievement-cards">
-                <div class="achievement-card">
-                    <div class="achievement-meta">
-                        <div class="achievement-icon">🏆</div>
-                    </div>
-                    <div class="achievement-content">
-                        <h3>Central CTF</h3>
-                        <p>Second stage of YCEP, only for the top few teams who qualified through rigorous selection.</p>
-                    </div>
+        <div class="achievements-container"> 
+            <div class="achievement-card fade-in">
+                <div class="achievement-meta">
+                    <div class="achievement-year">2024</div>
+                    <div class="achievement-icon">🏆</div>
                 </div>
-                
-                <!-- 2024 -->
+                <div class="achievement-content">
+                    <h3>Central CTF</h3>
+                    <p>Second stage of YCEP, only for the top few teams who qualified through rigorous selection.</p>
+                </div>
             </div>
             
-            <div class="timeline-year">2023</div>
-            
-            <div class="achievement-cards">
-                <div class="achievement-card">
-                    <div class="achievement-meta">
-                        <div class="achievement-icon">👨‍🏫</div>
-                    </div>
-                    <div class="achievement-content">
-                        <h3>SST iNC ACTO</h3>
-                        <p>Led Android app development training, teaching Kotlin fundamentals and mobile design principles to junior trainees.</p>
-                    </div>
+            <div class="achievement-card fade-in">
+                <div class="achievement-meta">
+                    <div class="achievement-year">2023</div>
+                    <div class="achievement-icon">👨‍🏫</div>
                 </div>
-                
-                <div class="achievement-card achievement-card-offset">
-                    <div class="achievement-meta">
-                        <div class="achievement-icon">💻</div>
-                    </div>
-                    <div class="achievement-content">
-                        <h3>DSTA Brainhack</h3>
-                        <p>Advanced cybersecurity CTF competition involving cryptography, reverse engineering, and app exploitation workshops.</p>
-                    </div>
+                <div class="achievement-content">
+                    <h3>SST iNC ACTO</h3>
+                    <p>Led Android app development training, teaching Kotlin fundamentals and mobile design principles to junior trainees.</p>
                 </div>
-                
-                <!-- 2023 -->
             </div>
             
-            <!-- add more years and achievements -->
+            <div class="achievement-card fade-in">
+                <div class="achievement-meta">
+                    <div class="achievement-year">2023</div>
+                    <div class="achievement-icon">💻</div>
+                </div>
+                <div class="achievement-content">
+                    <h3>DSTA Brainhack</h3>
+                    <p>Advanced cybersecurity CTF competition involving cryptography, reverse engineering, and app exploitation workshops.</p>
+                </div>
+            </div>
+            
         </div>
     </main>
 </body>

@@ -89,14 +89,32 @@ html {
     font-size: 16px;
 }
 
+/* Page Transition Styles */
+@keyframes pageFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes pageFadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
 body {
+    animation: pageFadeIn 0.5s ease-out forwards; 
     font-family: var(--font-sans);
     background-color: var(--bg);
     color: var(--color-text);
     line-height: 1.5;
     transition: background-color var(--transition-med), color var(--transition-med);
     overflow-x: hidden;
+    opacity: 0;
 }
+
+body.fade-out {
+    animation: pageFadeOut 0.4s ease-in forwards;
+}
+
 
 /* theme toggle */
 .theme-toggle {
@@ -342,7 +360,7 @@ body {
 /* main content */
 main {
     padding: 0 var(--space-md);
-    overflow-x: hidden;
+    overflow-x: hidden; 
 }
 
 section {
@@ -404,8 +422,9 @@ section.visible {
     left: auto;
 }
 
-/* projects section */
-.projects-container {
+/* projects section & achievements section (unified container styles) */
+.projects-container, 
+.achievements-container {
     display: flex;
     flex-direction: column;
     gap: var(--space-lg);
@@ -414,6 +433,7 @@ section.visible {
     position: relative;
 }
 
+/* Project Card Specific Styles */
 .project-card:nth-child(odd) {
     align-self: flex-start;
     margin-left: -15vw;
@@ -451,12 +471,6 @@ section.visible {
 .project-card:nth-child(even):hover {
     transform: translateY(-20px);
     box-shadow: -5px 5px 0px var(--color-accent);
-}
-
-.project-card-offset, .project-card-offset-alt {
-    margin-right: 0;
-    align-self: auto;
-    margin-top: 0;
 }
 
 .project-index {
@@ -523,59 +537,6 @@ section.visible {
     transform: translateX(3px) translateY(-3px);
 }
 
-.view-more {
-    margin-top: var(--space-xl);
-    align-self: flex-end;
-}
-
-.view-more-link {
-    display: flex;
-    align-items: center;
-    gap: var(--space-xs);
-    font-family: var(--font-mono);
-    font-size: var(--fs-body);
-    color: var(--color-accent);
-    text-decoration: none;
-    transition: transform var(--transition-fast);
-}
-
-.view-more-link:hover {
-    transform: translateX(10px);
-}
-
-.view-more-line {
-    height: 1px;
-    width: 60px;
-    background-color: var(--color-accent);
-    transition: width var(--transition-fast);
-}
-
-.view-more-link:hover .view-more-line {
-    width: 100px;
-}
-
-.view-more-left {
-    align-self: flex-start;
-}
-
-.view-more-left .view-more-link {
-    flex-direction: row-reverse;
-}
-
-.view-more-left .view-more-link:hover {
-    transform: translateX(-10px);
-}
-
-/* achievements section */
-.achievements-container {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-lg);
-    width: 100%;
-    max-width: 100%;
-    position: relative;
-}
-
 .achievement-card:nth-child(odd) {
     align-self: flex-start;
     margin-left: -15vw;
@@ -614,11 +575,6 @@ section.visible {
 .achievement-card:nth-child(even):hover {
     transform: translateY(-20px);
     box-shadow: -5px 5px 0px var(--color-accent);
-}
-
-.achievement-card-offset, .achievement-card-offset-alt {
-    margin-left: 0;
-    margin-top: 0;
 }
 
 .achievement-meta {
@@ -661,6 +617,55 @@ section.visible {
     color: var(--color-text);
     opacity: 0.9;
     line-height: 1.6;
+}
+
+.project-card-offset, .project-card-offset-alt,
+.achievement-card-offset, .achievement-card-offset-alt {
+    margin: 0; 
+    align-self: auto;
+}
+
+.view-more {
+    margin-top: var(--space-xl);
+    align-self: flex-end;
+}
+
+.view-more-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-family: var(--font-mono);
+    font-size: var(--fs-body);
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: transform var(--transition-fast);
+}
+
+.view-more-link:hover {
+    transform: translateX(10px);
+}
+
+.view-more-line {
+    height: 1px;
+    width: 60px;
+    background-color: var(--color-accent);
+    transition: width var(--transition-fast);
+}
+
+.view-more-link:hover .view-more-line {
+    width: 100px;
+}
+
+.view-more-left {
+    align-self: flex-start;
+}
+
+.view-more-left .view-more-link {
+    flex-direction: row-reverse;
+}
+
+.view-more-left .view-more-link:hover {
+    transform: translateX(-10px);
 }
 
 /* about section */
@@ -903,6 +908,7 @@ footer {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 var(--space-md);
+    padding-bottom: var(--space-xl); 
 }
 
 .page-header {
@@ -923,14 +929,33 @@ footer {
     color: var(--color-muted);
 }
 
-/* projects page specific */
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: var(--space-lg);
-    margin-bottom: var(--space-xl);
+/* timeline styling improvements */
+.timeline-year {
+    font-family: var(--font-serif);
+    font-size: var(--fs-xl);
+    color: var(--color-highlight);
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-xs);
+    border-bottom: 2px solid var(--color-highlight);
+    opacity: 0.7;
+    width: fit-content;
+    margin-left: calc(15vw + var(--space-md)); 
 }
 
+/* fade-in animation styles (Keep) */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* github link styling (Keep) */
 .github-link-container {
     text-align: center;
     margin-top: var(--space-xl);
@@ -957,46 +982,6 @@ footer {
     transform: translateY(-10px);
 }
 
-/* achievements page specific */
-.achievements-timeline {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-lg);
-    margin-bottom: var(--space-xl);
-}
-
-.timeline-year {
-    font-family: var(--font-serif);
-    font-size: var(--fs-xl);
-    color: var(--color-highlight);
-    opacity: 0.7;
-    margin-bottom: var(--space-md);
-    position: relative;
-}
-
-.timeline-year::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 0;
-    width: 100px;
-    height: 2px;
-    background-color: var(--color-highlight);
-    opacity: 0.3;
-}
-
-.achievement-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: var(--space-lg);
-    margin-bottom: var(--space-xl);
-}
-
-.achievement-card-offset {
-    transform: translateY(2rem);
-}
-
-/* animations */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -1008,16 +993,6 @@ footer {
     }
 }
 
-.fade-in {
-    animation: fadeIn var(--transition-med) both;
-}
-
-.delay-1 { animation-delay: 0.2s; }
-.delay-2 { animation-delay: 0.4s; }
-.delay-3 { animation-delay: 0.6s; }
-.delay-4 { animation-delay: 0.8s; }
-
-/* responsive adjustments */
 @media (max-width: 768px) {
     .section-layout-split {
         grid-template-columns: 1fr;
@@ -1047,18 +1022,21 @@ footer {
         padding-left: var(--space-md);
         padding-right: var(--space-md);
         align-self: auto;
-    }
-    
-    .achievement-card:nth-child(even) {
         flex-direction: row;
+        text-align: left;
     }
     
     .achievement-card:nth-child(even) .achievement-content {
         text-align: left;
     }
-    
+
     .project-card:nth-child(even) .project-index {
         left: 1rem;
         right: auto;
     }
+    
+    .timeline-year {
+        margin-left: var(--space-md);
+    }
 }
+
