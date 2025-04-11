@@ -1,217 +1,148 @@
-window.addEventListener('DOMContentLoaded', function() {
-    // initial fade-in animation
-    setTimeout(function() {
-        document.body.style.opacity = '1';
-        
-        setTimeout(function() {
-            const mainContent = document.querySelector('main');
-            mainContent.style.opacity = '1';
-            
-            setTimeout(function() {
-                const footer = document.querySelector('footer');
-                footer.style.opacity = '1';
-            }, 600);
-        }, 600);
-    }, 300);
-
-    // section visibility animation
+document.addEventListener('DOMContentLoaded', function() {
+    // Theme toggle functionality
+    const themeToggle = document.querySelector('.theme-toggle');
+    const body = document.body;
+    
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        body.classList.remove('theme-light');
+        body.classList.add('theme-dark');
+    }
+    
+    themeToggle.addEventListener('click', function() {
+        if (body.classList.contains('theme-light')) {
+            body.classList.remove('theme-light');
+            body.classList.add('theme-dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            body.classList.remove('theme-dark');
+            body.classList.add('theme-light');
+            localStorage.setItem('theme', 'light');
+        }
+    });
+    
+    // Smooth reveal on scroll
     const sections = document.querySelectorAll('section');
     
     const observerOptions = {
         root: null,
         rootMargin: '0px',
-        threshold: 0.15 // triggers when 15% of the section is visible
+        threshold: 0.15
     };
-
+    
     const sectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (!entry.isIntersecting) {
-                entry.target.classList.remove('visible');
-            } else {
+            if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
+                
+                // Add staggered animations to children
+                const children = entry.target.querySelectorAll('.project-card, .achievement-card, .about-card, .contact-link');
+                children.forEach((child, index) => {
+                    child.classList.add('fade-in', `delay-${index + 1}`);
+                });
             }
         });
     }, observerOptions);
-
+    
     sections.forEach(section => {
         sectionObserver.observe(section);
     });
-
-    // direct links to sections
-    if (window.location.hash) {
-        const targetId = window.location.hash;
-        const targetElement = document.querySelector(targetId);
-        
-        if (targetElement) {
-            setTimeout(() => {
-                targetElement.scrollIntoView({ behavior: 'smooth' });
-            }, 1000);
-        }
-    }
-
-    // scroll arrow functionality (down arrow & back to top button)
-    const scrollArrow = document.querySelector('.scroll-arrow');
+    
+    // Scroll arrow behavior
+    const scrollArrow = document.getElementById('scrollArrow');
     const heroContainer = document.querySelector('.hero-container');
+    const heroScrollIndicator = document.getElementById('heroScrollIndicator');
+    
+    // Initial state: hide the scroll arrow on the hero page
+    scrollArrow.style.display = 'flex';
+    scrollArrow.classList.remove('visible');
     
     function handleScroll() {
-        if (!heroContainer) return;
-        
         const heroBottom = heroContainer.offsetTop + heroContainer.offsetHeight;
         
-        if (window.scrollY > heroBottom) {
-            scrollArrow.classList.add('show-top');
-            scrollArrow.querySelector('a').setAttribute('href', '#');
+        // Show/hide scroll arrow based on scroll position
+        if (window.scrollY > heroBottom / 2) {
+            scrollArrow.classList.add('visible');
+            
+            // Determine if we should show up or down arrow
+            if (window.scrollY > heroBottom) {
+                scrollArrow.classList.add('show-top');
+                scrollArrow.setAttribute('data-target', 'top');
+            } else {
+                scrollArrow.classList.remove('show-top');
+                scrollArrow.setAttribute('data-target', 'next');
+            }
         } else {
-            scrollArrow.classList.remove('show-top');
-            scrollArrow.querySelector('a').setAttribute('href', '#projects');
+            scrollArrow.classList.remove('visible');
         }
     }
-
+    
     window.addEventListener('scroll', handleScroll);
     
-    // handle scroll arrow clicks (now with firefox support! wow!)
-    function smoothScroll(target) {
-        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
-        window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
-        });
-    }
-
-    function handleArrowClick(e) {
-        e.preventDefault();
-        
-        if (scrollArrow.classList.contains('show-top')) {
-            smoothScroll(heroContainer);
+    // Handle scroll arrow click
+    scrollArrow.addEventListener('click', function() {
+        if (this.getAttribute('data-target') === 'top') {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         } else {
             const firstSection = document.querySelector('section');
             if (firstSection) {
-                smoothScroll(firstSection);
+                firstSection.scrollIntoView({ behavior: 'smooth' });
             }
         }
-    }
-
-    // apply click handler 
-    scrollArrow.addEventListener('click', handleArrowClick);
-    scrollArrow.querySelector('a').addEventListener('click', handleArrowClick);
-
+    });
+    
+    // Handle hero scroll indicator click
+    heroScrollIndicator.addEventListener('click', function() {
+        const firstSection = document.querySelector('section');
+        if (firstSection) {
+            firstSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+    
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            
+            if (targetId === '#') {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+                return;
+            }
+            
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                const headerOffset = 60;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+    
+    // Add animation classes to elements on page load
+    setTimeout(() => {
+        const heroContent = document.querySelector('.hero-content');
+        const linksContainer = document.querySelector('.links-container');
+        const scrollIndicator = document.querySelector('.scroll-indicator');
+        
+        heroContent.classList.add('fade-in');
+        linksContainer.classList.add('fade-in', 'delay-1');
+        scrollIndicator.classList.add('fade-in', 'delay-2');
+    }, 100);
+    
+    // Call once on load
     handleScroll();
-});
-
-// smooth scroll for all anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
-        
-        if (targetElement) {
-            targetElement.scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('contactForm');
-    const inputs = form.querySelectorAll('.form-input');
-
-    // Add 'touched' class only after user interacts with an input
-    inputs.forEach(input => {
-        input.addEventListener('blur', function() {
-            this.classList.add('touched');
-            validateInput(this);
-        });
-
-        input.addEventListener('input', function() {
-            if (this.classList.contains('touched')) {
-                validateInput(this);
-            }
-        });
-    });
-
-    function validateInput(input) {
-        const errorElement = document.getElementById(`${input.id}-error`);
-        
-        if (input.id === 'email' && input.value.trim()) {
-            const isValid = isValidEmail(input.value.trim());
-            errorElement.style.display = isValid ? 'none' : 'block';
-        } else {
-            errorElement.style.display = input.value.trim() ? 'none' : 'block';
-        }
-    }
-
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
-        
-        const buttonText = form.querySelector('.button-text');
-        const buttonLoader = form.querySelector('.button-loader');
-        const nameInput = form.querySelector('#name');
-        const emailInput = form.querySelector('#email');
-        const messageInput = form.querySelector('#message');
-        
-        // Mark all inputs as touched on submit
-        inputs.forEach(input => input.classList.add('touched'));
-        
-        // Validate form
-        let hasErrors = false;
-        
-        if (!nameInput.value.trim()) {
-            document.getElementById('name-error').style.display = 'block';
-            hasErrors = true;
-        } else {
-            document.getElementById('name-error').style.display = 'none';
-        }
-        
-        if (!emailInput.value.trim() || !isValidEmail(emailInput.value.trim())) {
-            document.getElementById('email-error').style.display = 'block';
-            hasErrors = true;
-        } else {
-            document.getElementById('email-error').style.display = 'none';
-        }
-        
-        if (!messageInput.value.trim()) {
-            document.getElementById('message-error').style.display = 'block';
-            hasErrors = true;
-        } else {
-            document.getElementById('message-error').style.display = 'none';
-        }
-        
-        if (hasErrors) return;
-        
-        // Show loading state
-        buttonText.style.display = 'none';
-        buttonLoader.style.display = 'block';
-        
-        // Prepare email parameters
-        const templateParams = {
-            from_name: nameInput.value,
-            from_email: emailInput.value,
-            message: messageInput.value,
-            to_name: 'Charles Ng',
-            to_email: 'ellipticobj@gmail.com'
-        };
-        
-        // Send email using EmailJS
-        emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
-            .then(function() {
-                alert('Message sent successfully!');
-                form.reset();
-                inputs.forEach(input => input.classList.remove('touched'));
-            }, function(error) {
-                alert('Failed to send message. Please try again.');
-                console.error('EmailJS error:', error);
-            })
-            .finally(function() {
-                buttonText.style.display = 'block';
-                buttonLoader.style.display = 'none';
-            });
-    });
-
-    function isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    }
 });
