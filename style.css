@@ -323,13 +323,13 @@ body.fade-out {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     z-index: 1000;
-    transition: transform var(--transition-fast), 
-                background-color var(--transition-fast),
-                box-shadow var(--transition-fast),
-                color var(--transition-fast),
+    transition: transform var(--transition-med), 
+                background-color var(--transition-med),
+                box-shadow var(--transition-med),
+                color var(--transition-med),
                 opacity var(--transition-med);
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(10px);
     pointer-events: none;
 }
 
@@ -340,7 +340,7 @@ body.fade-out {
 }
 
 .scroll-arrow:hover {
-    transform: translateY(-15px);
+    transform: translateY(-10px);
     background-color: var(--color-accent);
     color: var(--bg);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -423,7 +423,7 @@ section.visible {
     left: auto;
 }
 
-/* projects section & achievements section (unified container styles) */
+/* projects section & achievements section */
 .projects-container, 
 .achievements-container {
     display: flex;
@@ -434,7 +434,6 @@ section.visible {
     position: relative;
 }
 
-/* Project Card Specific Styles */
 .project-card:nth-child(odd) {
     align-self: flex-start;
     margin-left: -15vw;
@@ -456,22 +455,47 @@ section.visible {
     padding: var(--space-md);
     border-radius: 3px;
     background-color: var(--bg-overlay);
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    transition: transform var(--transition-med), box-shadow var(--transition-med);
 }
 
 .project-card:hover {
     transform: translateY(-20px);
-    box-shadow: -5px 5px 0px var(--color-accent);
+    box-shadow: 
+        5px 5px 0 0 var(--color-accent),
+        -5px 5px 0 0 var(--color-accent),
+        5px 0 0 0 var(--color-accent),
+        -5px 0 0 0 var(--color-accent),
+        0 5px 0 0 var(--color-accent);
 }
 
 .project-card:nth-child(odd):hover {
     transform: translateY(-20px);
-    box-shadow: 5px 5px 0px var(--color-accent);
+    box-shadow: 
+        5px 5px 0 0 var(--color-accent),
+        -5px 5px 0 0 var(--color-accent),
+        5px 0 0 0 var(--color-accent),
+        -5px 0 0 0 var(--color-accent),
+        0 5px 0 0 var(--color-accent);
 }
 
 .project-card:nth-child(even):hover {
     transform: translateY(-20px);
-    box-shadow: -5px 5px 0px var(--color-accent);
+    box-shadow: 
+        5px 5px 0 0 var(--color-accent),
+        -5px 5px 0 0 var(--color-accent),
+        5px 0 0 0 var(--color-accent),
+        -5px 0 0 0 var(--color-accent),
+        0 5px 0 0 var(--color-accent);
+}
+
+.project-card:nth-child(even):hover {
+    transform: translateY(-20px);
+    box-shadow: 
+        5px 5px 0 0 var(--color-accent),
+        -5px 5px 0 0 var(--color-accent),
+        5px 0 0 0 var(--color-accent),
+        -5px 0 0 0 var(--color-accent),
+        0 5px 0 0 var(--color-accent);
 }
 
 .project-index {
@@ -565,17 +589,32 @@ section.visible {
 
 .achievement-card:hover {
     transform: translateY(-20px);
-    box-shadow: 5px 5px 0px var(--color-accent);
+    box-shadow: 
+        3px 3px 0 0 var(--color-accent),   /* bottom-right corner */
+        -3px 3px 0 0 var(--color-accent),  /* bottom-left corner */
+        3px 0 0 0 var(--color-accent),     /* right border */
+        -3px 0 0 0 var(--color-accent),    /* left border */
+        0 3px 0 0 var(--color-accent);     /* bottom border */
 }
 
 .achievement-card:nth-child(odd):hover {
     transform: translateY(-20px);
-    box-shadow: 5px 5px 0px var(--color-accent);
+    box-shadow: 
+        3px 3px 0 0 var(--color-accent),   /* bottom-right corner */
+        -3px 3px 0 0 var(--color-accent),  /* bottom-left corner */
+        3px 0 0 0 var(--color-accent),     /* right border */
+        -3px 0 0 0 var(--color-accent),    /* left border */
+        0 3px 0 0 var(--color-accent);     /* bottom border */
 }
 
 .achievement-card:nth-child(even):hover {
     transform: translateY(-20px);
-    box-shadow: -5px 5px 0px var(--color-accent);
+    box-shadow: 
+        3px 3px 0 0 var(--color-accent),   /* bottom-right corner */
+        -3px 3px 0 0 var(--color-accent),  /* bottom-left corner */
+        3px 0 0 0 var(--color-accent),     /* right border */
+        -3px 0 0 0 var(--color-accent),    /* left border */
+        0 3px 0 0 var(--color-accent);     /* bottom border */
 }
 
 .achievement-meta {
