@@ -361,6 +361,7 @@ body.fade-out {
 main {
     padding: 0 var(--space-md);
     overflow-x: hidden; 
+    overflow-y: hidden;
 }
 
 section {
