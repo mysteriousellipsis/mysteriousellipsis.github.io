@@ -1,217 +1,200 @@
-window.addEventListener('DOMContentLoaded', function() {
-    // initial fade-in animation
-    setTimeout(function() {
-        document.body.style.opacity = '1';
-        
-        setTimeout(function() {
-            const mainContent = document.querySelector('main');
-            mainContent.style.opacity = '1';
-            
-            setTimeout(function() {
-                const footer = document.querySelector('footer');
-                footer.style.opacity = '1';
-            }, 600);
-        }, 600);
-    }, 300);
-
-    // section visibility animation
-    const sections = document.querySelectorAll('section');
-    
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.15 // triggers when 15% of the section is visible
-    };
-
-    const sectionObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (!entry.isIntersecting) {
-                entry.target.classList.remove('visible');
-            } else {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, observerOptions);
-
-    sections.forEach(section => {
-        sectionObserver.observe(section);
-    });
-
-    // direct links to sections
-    if (window.location.hash) {
-        const targetId = window.location.hash;
-        const targetElement = document.querySelector(targetId);
-        
-        if (targetElement) {
-            setTimeout(() => {
-                targetElement.scrollIntoView({ behavior: 'smooth' });
-            }, 1000);
-        }
-    }
-
-    // scroll arrow functionality (down arrow & back to top button)
-    const scrollArrow = document.querySelector('.scroll-arrow');
-    const heroContainer = document.querySelector('.hero-container');
-    
-    function handleScroll() {
-        if (!heroContainer) return;
-        
-        const heroBottom = heroContainer.offsetTop + heroContainer.offsetHeight;
-        
-        if (window.scrollY > heroBottom) {
-            scrollArrow.classList.add('show-top');
-            scrollArrow.querySelector('a').setAttribute('href', '#');
-        } else {
-            scrollArrow.classList.remove('show-top');
-            scrollArrow.querySelector('a').setAttribute('href', '#projects');
-        }
-    }
-
-    window.addEventListener('scroll', handleScroll);
-    
-    // handle scroll arrow clicks (now with firefox support! wow!)
-    function smoothScroll(target) {
-        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
-        window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
-        });
-    }
-
-    function handleArrowClick(e) {
-        e.preventDefault();
-        
-        if (scrollArrow.classList.contains('show-top')) {
-            smoothScroll(heroContainer);
-        } else {
-            const firstSection = document.querySelector('section');
-            if (firstSection) {
-                smoothScroll(firstSection);
-            }
-        }
-    }
-
-    // apply click handler 
-    scrollArrow.addEventListener('click', handleArrowClick);
-    scrollArrow.querySelector('a').addEventListener('click', handleArrowClick);
-
-    handleScroll();
-});
-
-// smooth scroll for all anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
-        
-        if (targetElement) {
-            targetElement.scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
 document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('contactForm');
-    const inputs = form.querySelectorAll('.form-input');
+    // --- page transition ---
+    const FADEDURATION = 400;
+    document.body.style.opacity = '1';
 
-    // Add 'touched' class only after user interacts with an input
-    inputs.forEach(input => {
-        input.addEventListener('blur', function() {
-            this.classList.add('touched');
-            validateInput(this);
-        });
+    const navLinks = document.querySelectorAll('a[data-page-nav]'); 
 
-        input.addEventListener('input', function() {
-            if (this.classList.contains('touched')) {
-                validateInput(this);
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(event) {
+            const destination = this.href;
+
+            if (destination && destination !== window.location.href && !destination.startsWith('#')) {
+                event.preventDefault();
+                document.body.classList.add('fade-out');
+
+                setTimeout(() => {
+                    window.location.href = destination;
+                }, FADEDURATION);
             }
         });
     });
 
-    function validateInput(input) {
-        const errorElement = document.getElementById(`${input.id}-error`);
-        
-        if (input.id === 'email' && input.value.trim()) {
-            const isValid = isValidEmail(input.value.trim());
-            errorElement.style.display = isValid ? 'none' : 'block';
-        } else {
-            errorElement.style.display = input.value.trim() ? 'none' : 'block';
-        }
+    // --- theme toggle ---
+    const themeToggle = document.querySelector('.theme-toggle');
+    const body = document.body;
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        body.classList.remove('theme-light');
+        body.classList.add('theme-dark');
+    } else {
+        body.classList.add('theme-light');
     }
-
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
-        
-        const buttonText = form.querySelector('.button-text');
-        const buttonLoader = form.querySelector('.button-loader');
-        const nameInput = form.querySelector('#name');
-        const emailInput = form.querySelector('#email');
-        const messageInput = form.querySelector('#message');
-        
-        // Mark all inputs as touched on submit
-        inputs.forEach(input => input.classList.add('touched'));
-        
-        // Validate form
-        let hasErrors = false;
-        
-        if (!nameInput.value.trim()) {
-            document.getElementById('name-error').style.display = 'block';
-            hasErrors = true;
-        } else {
-            document.getElementById('name-error').style.display = 'none';
-        }
-        
-        if (!emailInput.value.trim() || !isValidEmail(emailInput.value.trim())) {
-            document.getElementById('email-error').style.display = 'block';
-            hasErrors = true;
-        } else {
-            document.getElementById('email-error').style.display = 'none';
-        }
-        
-        if (!messageInput.value.trim()) {
-            document.getElementById('message-error').style.display = 'block';
-            hasErrors = true;
-        } else {
-            document.getElementById('message-error').style.display = 'none';
-        }
-        
-        if (hasErrors) return;
-        
-        // Show loading state
-        buttonText.style.display = 'none';
-        buttonLoader.style.display = 'block';
-        
-        // Prepare email parameters
-        const templateParams = {
-            from_name: nameInput.value,
-            from_email: emailInput.value,
-            message: messageInput.value,
-            to_name: 'Charles Ng',
-            to_email: 'ellipticobj@gmail.com'
-        };
-        
-        // Send email using EmailJS
-        emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
-            .then(function() {
-                alert('Message sent successfully!');
-                form.reset();
-                inputs.forEach(input => input.classList.remove('touched'));
-            }, function(error) {
-                alert('Failed to send message. Please try again.');
-                console.error('EmailJS error:', error);
-            })
-            .finally(function() {
-                buttonText.style.display = 'block';
-                buttonLoader.style.display = 'none';
-            });
+    themeToggle.addEventListener('click', function() {
+        body.classList.toggle('theme-light');
+        body.classList.toggle('theme-dark');
+        localStorage.setItem('theme', body.classList.contains('theme-dark') ? 'dark' : 'light');
     });
 
-    function isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
+    // --- intersection observer for main page sections ---
+    const sections = document.querySelectorAll('section');
+    if (sections.length > 0) {
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const sectionObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    const childrenToFade = entry.target.querySelectorAll('.fade-in');
+                    childrenToFade.forEach((child, index) => {
+                        setTimeout(() => {
+                            child.classList.add('visible');
+                        }, index * 150); 
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            sectionObserver.observe(section);
+        });
     }
+
+    // // --- animations for subpages ---
+    // const projectsContainerSubpage = document.querySelector('.page-content .projects-container');
+    // const achievementsContainerSubpage = document.querySelector('.page-content .achievements-container');
+
+    // if (projectsContainerSubpage || achievementsContainerSubpage) {
+    //     const container = projectsContainerSubpage || achievementsContainerSubpage;
+    //     const elementsToFade = container.querySelectorAll(':scope > .fade-in');
+    //     setTimeout(() => {
+    //         elementsToFade.forEach((element, index) => {
+    //             setTimeout(() => {
+    //                 element.classList.add('visible');
+    //             }, index * 150);
+    //         });
+    //     }, 100);
+    // }
+
+        // --- animations for subpages ---
+        console.log('[Debug] Checking for subpage containers...'); // Log: Check start
+        const projectsContainerSubpage = document.querySelector('.page-content .projects-container');
+        const achievementsContainerSubpage = document.querySelector('.page-content .achievements-container');
+    
+        if (projectsContainerSubpage || achievementsContainerSubpage) {
+            console.log('[Debug] Subpage container found!'); // Log: Block entered
+            const container = projectsContainerSubpage || achievementsContainerSubpage;
+            console.log('[Debug] Container element:', container); // Log: Container element
+    
+            // Select only the direct children cards within that container that need fading in
+            const elementsToFade = container.querySelectorAll(':scope > .fade-in');
+            console.log(`[Debug] Found ${elementsToFade.length} elements to fade in:`, elementsToFade); // Log: Selected elements count + list
+    
+            if (elementsToFade.length > 0) {
+                // Ensure body fade-in has likely completed before starting card animations
+                setTimeout(() => {
+                    console.log('[Debug] Starting stagger animation for subpage cards...'); // Log: Stagger start
+                    elementsToFade.forEach((element, index) => {
+                        // Double check element exists before setting timeout
+                        if (element) {
+                            setTimeout(() => {
+                                console.log(`[Debug] Adding .visible to element ${index}:`, element); // Log: Adding class
+                                element.classList.add('visible');
+                            }, index * 150); // Stagger delay
+                        } else {
+                             console.error(`[Debug] Element at index ${index} is null or undefined.`); // Log: Error if element missing
+                        }
+                    });
+                }, 150); // Initial delay slightly increased - adjust if needed (try 100, 200)
+            } else {
+                console.log('[Debug] No elements with .fade-in found as direct children of the container.'); // Log: No elements found
+            }
+        } else {
+             console.log('[Debug] Not detected as a subpage with project/achievement container.'); // Log: Not a subpage
+        }
+    
+
+    // --- homepage hero animations ---
+    const heroContent = document.querySelector('.hero-content');
+    if (heroContent) {
+        heroContent.classList.add('fade-in');
+        const linksContainer = document.querySelector('.links-container');
+        if (linksContainer) linksContainer.classList.add('fade-in');
+        const scrollIndicator = document.querySelector('.scroll-indicator');
+        if (scrollIndicator) scrollIndicator.classList.add('fade-in');
+
+        setTimeout(() => {
+            if (heroContent) heroContent.classList.add('visible');
+            setTimeout(() => {
+                if (linksContainer) linksContainer.classList.add('visible');
+            }, 150);
+            setTimeout(() => {
+                if (scrollIndicator) scrollIndicator.classList.add('visible');
+            }, 300);
+        }, 100);
+    }
+
+
+    // --- scroll arrow behavior ---
+    const scrollArrow = document.getElementById('scrollArrow');
+    if (scrollArrow) {
+        const heroContainer = document.querySelector('.hero-container');
+        const heroScrollIndicator = document.getElementById('heroScrollIndicator');
+
+        function handleScroll() {
+            if (!heroContainer) return;
+            const heroBottom = heroContainer.offsetTop + heroContainer.offsetHeight;
+            const scrollArrowVisible = scrollArrow.classList.contains('visible');
+
+            if (window.scrollY > heroBottom / 2) {
+                if (!scrollArrowVisible) scrollArrow.classList.add('visible');
+
+                scrollArrow.setAttribute('data-target', 'top');
+            } else {
+                if (scrollArrowVisible) scrollArrow.classList.remove('visible');
+            }
+        }
+        window.addEventListener('scroll', handleScroll);
+        scrollArrow.addEventListener('click', function() {
+            const target = this.getAttribute('data-target');
+            if (target === 'top') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                const firstSection = document.querySelector('section');
+                if (firstSection) firstSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+        if (heroScrollIndicator) {
+            heroScrollIndicator.addEventListener('click', function() {
+                const firstSection = document.querySelector('section');
+                if (firstSection) firstSection.scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+        handleScroll();
+    }
+
+    // --- smooth scrolling for nave links ---
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (targetId.startsWith('#') && targetId.length > 1) {
+                e.preventDefault();
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const headerOffset = 60; 
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                }
+            } else if (targetId === '#') {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    });
 });
