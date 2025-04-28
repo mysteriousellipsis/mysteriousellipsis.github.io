@@ -12,7 +12,7 @@
     --pine: #286983;
     --foam: #56949f;
     --iris: #907aa9;
-    
+
     /* rose pine moon */
     --base-moon: #232136;
     --surface-moon: #2a273f;
@@ -26,28 +26,28 @@
     --pine-moon: #3e8fb0;
     --foam-moon: #9ccfd8;
     --iris-moon: #c4a7e7;
-    
+
     /* spacings */
     --space-xs: clamp(0.5rem, 1vw, 0.75rem);
     --space-sm: clamp(1rem, 2vw, 1.5rem);
     --space-md: clamp(2rem, 5vw, 3rem);
     --space-lg: clamp(4rem, 10vw, 6rem);
     --space-xl: clamp(6rem, 15vw, 10rem);
-    
+
     /* font sizes */
     --fs-tiny: clamp(0.75rem, 1vw, 0.875rem);
-    --fs-small: clamp(0.875rem, 1.5vw, 1rem); 
+    --fs-small: clamp(0.875rem, 1.5vw, 1rem);
     --fs-body: clamp(1rem, 2vw, 1.25rem);
     --fs-large: clamp(1.5rem, 3vw, 2.5rem);
     --fs-xl: clamp(2rem, 5vw, 3.5rem);
     --fs-xxl: clamp(3rem, 10vw, 6rem);
     --fs-massive: clamp(10rem, 25vw, 20rem);
-    
+
     /* transitions */
     --transition-slow: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     --transition-med: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     --transition-fast: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    
+
     /* fonts */
     --font-serif: 'Fraunces', serif;
     --font-sans: 'Space Grotesk', sans-serif;
@@ -101,7 +101,7 @@ html {
 }
 
 body {
-    animation: pageFadeIn 0.5s ease-out forwards; 
+    animation: pageFadeIn 0.5s ease-out forwards;
     font-family: var(--font-sans);
     background-color: var(--bg);
     color: var(--color-text);
@@ -214,7 +214,7 @@ body.fade-out {
 
 .links-container {
     margin-top: auto;
-    margin-bottom: var(--space-lg);
+    margin-bottom: var(--space-xs);
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--space-xs);
@@ -320,10 +320,10 @@ body.fade-out {
     background-color: var(--bg-overlay);
     border-radius: 50%;
     color: var(--color-highlight);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 5px 5px 0 0 var(--color-accent);
     cursor: pointer;
     z-index: 1000;
-    transition: transform var(--transition-med), 
+    transition: transform var(--transition-med),
                 background-color var(--transition-med),
                 box-shadow var(--transition-med),
                 color var(--transition-med),
@@ -343,7 +343,7 @@ body.fade-out {
     transform: translateY(-10px);
     background-color: var(--color-accent);
     color: var(--bg);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 5px 5px 0 0 var(--color-highlight);
     opacity: 1;
 }
 
@@ -360,7 +360,7 @@ body.fade-out {
 /* main content */
 main {
     padding: 0 var(--space-md);
-    overflow-x: hidden; 
+    overflow-x: hidden;
     overflow-y: hidden;
 }
 
@@ -424,7 +424,7 @@ section.visible {
 }
 
 /* projects section & achievements section */
-.projects-container, 
+.projects-container,
 .achievements-container {
     display: flex;
     flex-direction: column;
@@ -458,44 +458,11 @@ section.visible {
     transition: transform var(--transition-med), box-shadow var(--transition-med);
 }
 
-.project-card:hover {
-    transform: translateY(-20px);
-    box-shadow: 
-        5px 5px 0 0 var(--color-accent),
-        -5px 5px 0 0 var(--color-accent),
-        5px 0 0 0 var(--color-accent),
-        -5px 0 0 0 var(--color-accent),
-        0 5px 0 0 var(--color-accent);
-}
-
-.project-card:nth-child(odd):hover {
-    transform: translateY(-20px);
-    box-shadow: 
-        5px 5px 0 0 var(--color-accent),
-        -5px 5px 0 0 var(--color-accent),
-        5px 0 0 0 var(--color-accent),
-        -5px 0 0 0 var(--color-accent),
-        0 5px 0 0 var(--color-accent);
-}
-
+.project-card:hover,
+.project-card:nth-child(odd):hover,
 .project-card:nth-child(even):hover {
     transform: translateY(-20px);
-    box-shadow: 
-        5px 5px 0 0 var(--color-accent),
-        -5px 5px 0 0 var(--color-accent),
-        5px 0 0 0 var(--color-accent),
-        -5px 0 0 0 var(--color-accent),
-        0 5px 0 0 var(--color-accent);
-}
-
-.project-card:nth-child(even):hover {
-    transform: translateY(-20px);
-    box-shadow: 
-        5px 5px 0 0 var(--color-accent),
-        -5px 5px 0 0 var(--color-accent),
-        5px 0 0 0 var(--color-accent),
-        -5px 0 0 0 var(--color-accent),
-        0 5px 0 0 var(--color-accent);
+    box-shadow: 5px 5px 0 0 var(--color-accent);
 }
 
 .project-index {
@@ -587,34 +554,11 @@ section.visible {
     transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.achievement-card:hover {
-    transform: translateY(-20px);
-    box-shadow: 
-        3px 3px 0 0 var(--color-accent),   /* bottom-right corner */
-        -3px 3px 0 0 var(--color-accent),  /* bottom-left corner */
-        3px 0 0 0 var(--color-accent),     /* right border */
-        -3px 0 0 0 var(--color-accent),    /* left border */
-        0 3px 0 0 var(--color-accent);     /* bottom border */
-}
-
-.achievement-card:nth-child(odd):hover {
-    transform: translateY(-20px);
-    box-shadow: 
-        3px 3px 0 0 var(--color-accent),   /* bottom-right corner */
-        -3px 3px 0 0 var(--color-accent),  /* bottom-left corner */
-        3px 0 0 0 var(--color-accent),     /* right border */
-        -3px 0 0 0 var(--color-accent),    /* left border */
-        0 3px 0 0 var(--color-accent);     /* bottom border */
-}
-
+.achievement-card:hover,
+.achievement-card:nth-child(odd):hover,
 .achievement-card:nth-child(even):hover {
     transform: translateY(-20px);
-    box-shadow: 
-        3px 3px 0 0 var(--color-accent),   /* bottom-right corner */
-        -3px 3px 0 0 var(--color-accent),  /* bottom-left corner */
-        3px 0 0 0 var(--color-accent),     /* right border */
-        -3px 0 0 0 var(--color-accent),    /* left border */
-        0 3px 0 0 var(--color-accent);     /* bottom border */
+    box-shadow: 5px 5px 0 0 var(--color-accent);
 }
 
 .achievement-meta {
@@ -661,7 +605,7 @@ section.visible {
 
 .project-card-offset, .project-card-offset-alt,
 .achievement-card-offset, .achievement-card-offset-alt {
-    margin: 0; 
+    margin: 0;
     align-self: auto;
 }
 
@@ -793,7 +737,7 @@ section.visible {
 
 .about-card:hover {
     transform: translateY(-20px);
-    box-shadow: 0 5px 0px var(--color-accent);
+    box-shadow: 5px 5px 0 0 var(--color-accent);
 }
 
 .about-card-offset {
@@ -820,11 +764,11 @@ section.visible {
 
 /* contact section */
 .section-layout-split {
-    min-height: 100vh;
+    min-height: 85vh;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-xl);
-    padding: var(--space-lg) 0;
+    padding: var(--space-lg) 0 var(--space-sm) 0;
     position: relative;
     opacity: 0;
     transform: translateY(50px);
@@ -853,13 +797,13 @@ section.visible {
 .contact-links-container {
     display: flex;
     flex-direction: column;
-    gap: var(--space-md);
+    gap: var(--space-sm);
 }
 
 .contact-link {
     display: flex;
     align-items: center;
-    padding: var(--space-md);
+    padding: var(--space-sm);
     background-color: var(--bg-overlay);
     text-decoration: none;
     border-radius: 3px;
@@ -868,15 +812,15 @@ section.visible {
 
 .contact-link:hover {
     transform: translateX(10px) translateY(-15px);
-    box-shadow: -5px 5px 0px var(--color-accent);
+    box-shadow: 5px 5px 0 0 var(--color-accent);
 }
 
 .contact-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     background-color: var(--bg);
     border-radius: 50%;
     color: var(--color-accent);
@@ -903,7 +847,7 @@ section.visible {
 
 /* footer */
 footer {
-    padding: var(--space-lg) var(--space-md);
+    padding: var(--space-sm) var(--space-md);
 }
 
 .footer-content {
@@ -928,27 +872,27 @@ footer {
 .page-nav {
     padding: var(--space-md);
     margin-bottom: var(--space-lg);
+    display: flex;
+    justify-content: flex-start;
 }
 
 .nav-back {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     gap: var(--space-xs);
     font-family: var(--font-mono);
-    color: var(--color-highlight);
+    font-size: var(--fs-body);
+    color: var(--color-accent);
     text-decoration: none;
     transition: transform var(--transition-fast);
-}
-
-.nav-back:hover {
-    transform: translateX(-10px);
+    flex-direction: row-reverse;
 }
 
 .page-content {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 var(--space-md);
-    padding-bottom: var(--space-xl); 
+    padding-bottom: var(--space-xl);
 }
 
 .page-header {
@@ -979,14 +923,14 @@ footer {
     border-bottom: 2px solid var(--color-highlight);
     opacity: 0.7;
     width: fit-content;
-    margin-left: calc(15vw + var(--space-md)); 
+    margin-left: calc(15vw + var(--space-md));
 }
 
-/* fade-in animation styles (Keep) */
+/* fade-in animation styles */
 .fade-in {
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
                 transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -995,11 +939,20 @@ footer {
     transform: translateY(0);
 }
 
-/* github link styling (Keep) */
+/* github link styling */
 .github-link-container {
     text-align: center;
     margin-top: var(--space-xl);
     margin-bottom: var(--space-xl);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.github-link-container.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .github-link {
@@ -1020,6 +973,7 @@ footer {
     background-color: var(--color-accent);
     color: var(--bg);
     transform: translateY(-10px);
+    box-shadow: 5px 5px 0 0 var(--color-highlight);
 }
 
 @keyframes fadeIn {
@@ -1038,20 +992,20 @@ footer {
         grid-template-columns: 1fr;
         gap: var(--space-md);
     }
-    
+
     .about-grid {
         grid-template-columns: 1fr;
         gap: var(--space-md);
     }
-    
+
     .about-column-offset {
         margin-top: 0;
     }
-    
+
     .about-card-offset {
         margin-left: 0;
     }
-    
+
     .project-card:nth-child(odd),
     .project-card:nth-child(even),
     .achievement-card:nth-child(odd),
@@ -1065,7 +1019,7 @@ footer {
         flex-direction: row;
         text-align: left;
     }
-    
+
     .achievement-card:nth-child(even) .achievement-content {
         text-align: left;
     }
@@ -1074,7 +1028,7 @@ footer {
         left: 1rem;
         right: auto;
     }
-    
+
     .timeline-year {
         margin-left: var(--space-md);
     }

@@ -1,9 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
     // --- page transition ---
     const FADEDURATION = 400;
-    document.body.style.opacity = '1';
 
-    const navLinks = document.querySelectorAll('a[data-page-nav]'); 
+    // Ensure the body starts with opacity 0 and then fades in
+    setTimeout(() => {
+        document.body.style.opacity = '1';
+    }, 10);
+
+    const navLinks = document.querySelectorAll('a[data-page-nav]');
 
     navLinks.forEach(link => {
         link.addEventListener('click', function(event) {
@@ -53,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     childrenToFade.forEach((child, index) => {
                         setTimeout(() => {
                             child.classList.add('visible');
-                        }, index * 150); 
+                        }, index * 150);
                     });
                     observer.unobserve(entry.target);
                 }
@@ -81,43 +85,53 @@ document.addEventListener('DOMContentLoaded', function() {
     //     }, 100);
     // }
 
-        // --- animations for subpages ---
-        console.log('[Debug] Checking for subpage containers...'); // Log: Check start
-        const projectsContainerSubpage = document.querySelector('.page-content .projects-container');
-        const achievementsContainerSubpage = document.querySelector('.page-content .achievements-container');
-    
-        if (projectsContainerSubpage || achievementsContainerSubpage) {
-            console.log('[Debug] Subpage container found!'); // Log: Block entered
-            const container = projectsContainerSubpage || achievementsContainerSubpage;
-            console.log('[Debug] Container element:', container); // Log: Container element
-    
-            // Select only the direct children cards within that container that need fading in
-            const elementsToFade = container.querySelectorAll(':scope > .fade-in');
-            console.log(`[Debug] Found ${elementsToFade.length} elements to fade in:`, elementsToFade); // Log: Selected elements count + list
-    
-            if (elementsToFade.length > 0) {
-                // Ensure body fade-in has likely completed before starting card animations
-                setTimeout(() => {
-                    console.log('[Debug] Starting stagger animation for subpage cards...'); // Log: Stagger start
-                    elementsToFade.forEach((element, index) => {
-                        // Double check element exists before setting timeout
-                        if (element) {
-                            setTimeout(() => {
-                                console.log(`[Debug] Adding .visible to element ${index}:`, element); // Log: Adding class
-                                element.classList.add('visible');
-                            }, index * 150); // Stagger delay
-                        } else {
-                             console.error(`[Debug] Element at index ${index} is null or undefined.`); // Log: Error if element missing
-                        }
-                    });
-                }, 150); // Initial delay slightly increased - adjust if needed (try 100, 200)
-            } else {
-                console.log('[Debug] No elements with .fade-in found as direct children of the container.'); // Log: No elements found
-            }
-        } else {
-             console.log('[Debug] Not detected as a subpage with project/achievement container.'); // Log: Not a subpage
+    // --- animations for subpages ---
+    const pageContent = document.querySelector('.page-content');
+    const projectsContainerSubpage = document.querySelector('.page-content .projects-container');
+    const achievementsContainerSubpage = document.querySelector('.page-content .achievements-container');
+
+    // Add fade-in animation to the page header
+    const pageHeader = document.querySelector('.page-header');
+    if (pageHeader) {
+        pageHeader.classList.add('fade-in');
+        setTimeout(() => {
+            pageHeader.classList.add('visible');
+        }, 100);
+    }
+
+    // Add fade-in animation to the GitHub link container
+    const githubLinkContainer = document.querySelector('.github-link-container');
+    if (githubLinkContainer) {
+        githubLinkContainer.classList.add('fade-in');
+    }
+
+    if (projectsContainerSubpage || achievementsContainerSubpage) {
+        const container = projectsContainerSubpage || achievementsContainerSubpage;
+
+        // Select only the direct children cards within that container that need fading in
+        const elementsToFade = container.querySelectorAll(':scope > .fade-in');
+
+        if (elementsToFade.length > 0) {
+            // Ensure body fade-in has completed before starting card animations
+            setTimeout(() => {
+                elementsToFade.forEach((element, index) => {
+                    if (element) {
+                        setTimeout(() => {
+                            element.classList.add('visible');
+                        }, 100 + (index * 100)); // Stagger delay
+                    }
+                });
+
+                // Fade in the GitHub link container after all cards
+                if (githubLinkContainer) {
+                    setTimeout(() => {
+                        githubLinkContainer.classList.add('visible');
+                    }, 100 + (elementsToFade.length * 100) + 200);
+                }
+            }, 200);
         }
-    
+    }
+
 
     // --- homepage hero animations ---
     const heroContent = document.querySelector('.hero-content');
@@ -186,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 e.preventDefault();
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
-                    const headerOffset = 60; 
+                    const headerOffset = 60;
                     const elementPosition = targetElement.getBoundingClientRect().top;
                     const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
                     window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
