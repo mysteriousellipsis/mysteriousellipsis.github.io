@@ -833,7 +833,7 @@ section.visible {
 
 .contact-platform {
     margin-left: var(--space-sm);
-    font-size: var(--fs-large);
+    font-size: var(--fs-body);
     font-weight: 600;
     color: var(--color-highlight);
 }
